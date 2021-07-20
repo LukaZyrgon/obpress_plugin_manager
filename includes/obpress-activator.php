@@ -14,7 +14,7 @@ class OBPress_Activator {
         add_option('changed_max_rooms', null);
         add_option('allow_unavail_dates', false);
         add_option('footer_api_option', true);
-
+        add_option('obpress_google_maps_api_key', null);
         flush_rewrite_rules();
     }
 }

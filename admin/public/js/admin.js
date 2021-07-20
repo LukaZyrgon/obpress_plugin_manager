@@ -204,6 +204,10 @@ jQuery(document).ready(function () {
       footerApiInfo = false;
     }
 
+    var googleMapsApiKey = '';
+    googleMapsApiKey = jQuery('#obpress-maps-api-input').val();
+
+
 
     for (i = 0; i < jQuery(".list-hotel-checkbox").length; i++) {
       if (jQuery(".list-hotel-checkbox").eq(i).prop("checked") == false) {
@@ -237,6 +241,7 @@ jQuery(document).ready(function () {
     data.changedMaxRooms = changedMaxRooms;
     data.allowUnavailDates = allowUnavailDates;
     data.footerApiInfo = footerApiInfo;
+    data.googleMapsApiKey = googleMapsApiKey;
 
     data.action = action;
 

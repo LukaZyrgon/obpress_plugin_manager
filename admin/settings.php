@@ -76,6 +76,13 @@ require_once(dirname(__FILE__) . '/settingsController.php');
                 <input type="checkbox" id="obpress-footer-api-checkbox" <?php if(get_option('footer_api_option') == 'true'){echo 'checked="checked"';}?>>
             </span>
         </span>
+        <span class="obpress-google-maps">
+            <h3>Google Maps Api</h3>
+            <span class="obpress-google-maps-api">
+                <label for="">Enter your Google Maps API key</label>
+                <input id="obpress-maps-api-input" value="<?= get_option('obpress_google_maps_api_key'); ?>">
+            </span>
+        </span>        
     </div>
 </div>
 

@@ -12,6 +12,7 @@ function admin_apply_changes() {
     $changedMaxRooms = $_POST['changedMaxRooms'];
     $allowUnavailDates = $_POST['allowUnavailDates'];
     $footerApiInfo = $_POST['footerApiInfo'];
+    $googleMapsApiKey = $_POST['googleMapsApiKey'];
 
     $langArray = [
         8 => "pt_BR",
@@ -34,7 +35,7 @@ function admin_apply_changes() {
     update_option('removed_hotels', $removedHotels);
     update_option('allow_unavail_dates', $allowUnavailDates);
     update_option('footer_api_option', $footerApiInfo);
-
+    update_option('obpress_google_maps_api_key', $googleMapsApiKey);
 
     if(!empty($changedMaxRooms)) {
         update_option('changed_max_rooms', $changedMaxRooms);

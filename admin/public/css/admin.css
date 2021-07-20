@@ -50,11 +50,11 @@ input::-webkit-inner-spin-button {
     margin-top: 40px;
 }
 
-.obpress-select-currency, .obpress-select-language, .obpress-calendar-options, .obpress-select-list-hotel, .obpress-select-max-rooms, .obpress-footer-info {
+.obpress-select-currency, .obpress-select-language, .obpress-calendar-options, .obpress-select-list-hotel, .obpress-select-max-rooms, .obpress-footer-info, .obpress-google-maps {
     margin-bottom: 20px;
 }
 
-.obpress-select-currency h3, .obpress-select-language h3, .obpress-calendar-options h3, .obpress-select-list-hotel .list-hotel-folder, .obpress-select-max-rooms h3, .obpress-footer-info h3 {
+.obpress-select-currency h3, .obpress-select-language h3, .obpress-calendar-options h3, .obpress-select-list-hotel .list-hotel-folder, .obpress-select-max-rooms h3, .obpress-footer-info h3, .obpress-google-maps h3 {
     margin-bottom: 5px;
 }
 
@@ -67,7 +67,7 @@ input::-webkit-inner-spin-button {
     align-items: flex-end;
 }
 
-.obpress-calendar-allow-unavail label, .obpress-footer-info-api label {
+.obpress-calendar-allow-unavail label, .obpress-footer-info-api label, .obpress-google-maps-api label {
     margin-right: 30px;
 }
 

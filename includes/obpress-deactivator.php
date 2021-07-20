@@ -14,7 +14,7 @@ class OBPress_Deactivator {
         delete_option('changed_max_rooms');
         delete_option('allow_unavail_dates');
         delete_option('footer_api_option');
-
+        delete_option('obpress_google_maps_api_key');
         flush_rewrite_rules();
     }
 }

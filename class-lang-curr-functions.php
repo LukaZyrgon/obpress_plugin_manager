@@ -283,7 +283,6 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
         }
 
         public static function ChainOrHotel() {
-
             if(get_option('chain_id') != null) {
                 $chain = get_option('chain_id');
                 $property = false;
@@ -296,7 +295,9 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
                 $property = get_option('hotel_id');
     
                 // $hotel_search = self::ApiCache(BeApi::getHotelSearchForProperty($property, "true"), 'hotel_search_property_'.$property.'_true', self::$cache_time["hotel_search_property"]);
-                $hotel_search = self::getHotelSearchForProperty($property, "true");
+                $hotel_search = self::ApiCache('hotel_search_property_'.$property.'_true', self::$cache_time["hotel_search_property"], function() use ($property){
+                    return BeApi::getHotelSearchForProperty($property, "true");
+                });
     
                 if($hotel_search == false) {
                     return false;
@@ -329,7 +330,9 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
             $languageFromBrowser = $languageFromBrowser[0];
     
             // $languages = self::ApiCache(BeApi::getLanguages($chain), 'languages_chain_'.$chain, self::$cache_time["languages_chain"]);
-            $languages =  self::getLanguages($chain);
+            $languages = self::ApiCache('languages_chain_'.$chain, self::$cache_time["languages_chain"], function() use ($chain) {
+                return BeApi::getLanguages($chain);
+            });
     
             if($languages == null) {
                 return false;
@@ -536,7 +539,9 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
 
         public static function getCurrenciesForChain($chain) {
             // $currencies = self::ApiCache(BeApi::getCurrencies($chain), 'currencies_chain_'.$chain, $cache_time['currencies_chain']);
-            $currencies = BeApi::getCurrencies($chain);
+            $currencies = self::ApiCache('currencies_chain_'.$chain, self::$cache_time['currencies_chain'], function() use ($chain){
+                return BeApi::getCurrencies($chain);
+            }); 
 
             
 
@@ -562,7 +567,9 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
         }
         
         public static function getCurrenciesForProperty($chain, $property) {
-            $default_curr_lang = BeApi::getClientBaseInfo($chain);
+            $default_curr_lang = self::ApiCache('default_curr_lang_chain_'.$chain, self::$cache_time["default_curr_lang_chain"], function() use ($chain){
+                return BeApi::getClientBaseInfo($chain);
+            });
 
             $default_curr_lang = $default_curr_lang->Result;
     

@@ -4,7 +4,7 @@
   Plugin uri: www.zyrgon.net
   Text Domain: OBPress_Plugin_Manager
   Description: Plugin used to connect to the BEAPI and edit different settings for the Elementor extension
-  Version: 0.0.3
+  Version: 0.0.4
   Author: Zyrgon
   Author uri: www.zyrgon.net
   License: GPlv2 or Later
@@ -33,7 +33,7 @@ function obpress_plugin_manager()
 
 require_once(WP_PLUGIN_DIR . '/obpress_plugin_manager/plugin-update-checker-4.11/plugin-update-checker.php');
 $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-  'https://github.com/MilosZyrgon/OBPress_SearchBarPlugin',
+  'https://github.com/LukaZyrgon/obpress_plugin_manager',
   __FILE__,
   'obpress_plugin_manager'
 );

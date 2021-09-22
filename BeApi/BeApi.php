@@ -2354,8 +2354,10 @@ class BeApi
 
   public static function post($endPoint, $data = null)
   {
+
     self::setToken();
     $token = self::$token;
+
 
     $curl = curl_init(); //start curl and curl options
     curl_setopt_array(
@@ -2377,6 +2379,8 @@ class BeApi
 
 
     $response = curl_exec($curl); //response
+
+
     $info = curl_getinfo($curl);  //contains other details about connection
     $code = $info["http_code"]; //200 means http success
 
@@ -2387,6 +2391,7 @@ class BeApi
     $result->message = "";
     $result->data = null;
 
+
     if ($code == 200) {
       $response = json_decode($response);
       $result->success = true;
@@ -2396,7 +2401,11 @@ class BeApi
         $result->message = json_decode($response)->Message;
       }
     }
+
     return $result;
+
+
+
   }
 
   public static function getEchoToken()
@@ -2494,6 +2503,9 @@ class BeApi
     return $base->data;
   }
 
+
+
+
   public static function getPropertyStyle($hotel_code, $currency = 34, $language = 1)
   {
 
@@ -2512,6 +2524,9 @@ class BeApi
 
     return $base->data;
   }
+
+
+
 
   public static function getClientStyle($chain)
   {
@@ -3405,5 +3420,74 @@ class BeApi
 
     return $base->data;
   }
+
+
+
+
+  public static function childrenAllowed ($property, $currency , $language = 1) {
+
+        $data_allowed =
+          '
+            {
+              "PropertyUID": ' . $property . ',
+              "SelectedCurrencyUID": ' . $currency . ',
+              "IsForMobile": false,
+              "LanguageUID": '. $language .'
+            }
+            ';
+
+
+        $base = self::post("GetPropertyBEStyleDetails", $data_allowed);
+
+        $allowed = $base->data->Result->AllowChildren;
+
+        $data_max =
+            '
+            {
+                "PropertyUID": ' . $property . '
+            }
+            ';
+
+        $base_max = self::post("GetChildTerms", $data_max);
+
+        $childrenTerms = $base_max->data->Result;
+
+        if ($childrenTerms != null) {
+
+        $childrenMaxAge = 0;
+
+        //SEARCH FOR CHILDREN LIMIT WITH CODE 1 WHICH MEANS CHILDREN
+        foreach($childrenTerms as $childrenTerm) {
+            if($childrenTerm->ChargeAs == 1 && $childrenTerm->MaxAge > $childrenMaxAge) {
+                $childrenMaxAge = $childrenTerm->MaxAge;
+            }
+        }
+
+        //IF DON'T EXIST CHILDREN LIMITS WITH CODE 1 THEN SEARCH FOR CHILDREN WITH CODE 3 WHCIH MEANS FREE CHILDREN
+        if($childrenMaxAge == 0) {
+            foreach($childrenTerms as $childrenTerm) {
+                if($childrenTerm->ChargeAs == 3 && $childrenTerm->MaxAge > $childrenMaxAge) {
+                    $childrenMaxAge = $childrenTerm->MaxAge;
+                } 
+            }
+        }
+
+        //IF DON'T EXIST ANY INFORMATION ABOUT CHILDREN THAN LIMIT TO THE 17 YEARS
+        if($childrenMaxAge == 0) {
+            $childrenMaxAge = 17;
+        }     
+
+
+        }  else {
+            $childrenMaxAge = 17;
+        }
+
+
+        return array ($allowed,$childrenMaxAge );
+
+
+
+
+    }
 
 }

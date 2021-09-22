@@ -242,6 +242,7 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
             ]
         ];
 
+
         public static function addLanguagePath($languages){
             
             foreach ($languages as $language) {
@@ -579,6 +580,7 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
             }
 
             $hotel_currencies = BeApi::getCurrenciesProperty($property);
+            $hotel_currencies = $hotel_currencies->Result;
 
     
     
@@ -653,6 +655,9 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
         }
         public static function getCurrency() {
             return self::$currency;
+        }
+        public static function getDefaultCurrency() {
+            return self::$default_currency;
         }
 
 

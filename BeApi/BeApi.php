@@ -3486,8 +3486,187 @@ class BeApi
         return array ($allowed,$childrenMaxAge );
 
 
-
-
     }
+
+
+
+
+  public static function getBEMandatoryFields($property, $language) {
+    $data =
+    '
+    {
+      "PropertyUID": '.$property.',
+      "LanguageUID": '.$language.'
+    }
+    ';
+
+    $base = self::post("GetBEMandatoryFields", $data);
+
+    return $base->data;
+  }
+
+  public static function getPaymentMethodTypesByRates($rate_plans, $hotel_code, $language) {
+
+    $RateUIDs = '[';
+    $counter = 1;
+    foreach ($rate_plans as $rate_plan) {
+      $RateUIDs.= $rate_plan;
+
+      if ($counter != count($rate_plans)) {
+        $RateUIDs.= ',';
+      }
+
+      $counter++;
+    }
+    $RateUIDs .= ']';
+
+    $data = 
+    '
+    {
+      "RateUIDs": '.$RateUIDs.',
+      "PropertyUID": '.$hotel_code.',
+      "LanguageUID": '.$language.'
+    }
+    ';
+
+    $base = self::post("GetBEPaymentMethodTypesByRates", $data);
+
+    return $base->data;
+  }
+
+  public static function getPaymentMethodTypes($hotel_code, $language) {
+
+    $data = 
+    '
+    {
+      "PropertyUID": '.$hotel_code.',
+      "LanguageUID": '.$language.'
+    }
+    ';
+
+    $base = self::post("GetBEPaymentMethodTypes", $data);
+
+    return $base->data;
+  }
+
+  public static function getBEPaymentMethodTypesByTPI($tpi, $property, $language){
+
+    $data = '{
+      "TPIUID": '.$tpi.',
+      "PropertyUID": '.$property.',
+      "LanguageUID": '.$language.'
+    }';
+
+    $base = self::post("GetBEPaymentMethodTypesByTPI", $data);
+
+    return $base->data;  
+  }
+
+  public static function getPaymentGatewayByProperty($hotel_code, $language) {
+
+    $data = 
+    '
+    {
+      "PropertyUID": '.$hotel_code.',
+      "ReturnTotal": true,
+      "LanguageUID": '.$language.'
+    }
+    ';
+
+    $base = self::post("GetPaymentGatewayByProperty", $data); 
+
+    return $base->data;
+  }
+
+  public static function getPaymentMethods($hotel_code, $language) {
+
+    $data = 
+    '
+    {
+      "PropertyUID": '.$hotel_code.',
+      "LanguageUID": '.$language.'
+    }
+    ';
+
+    $base = self::post("GetBEPaymentMethods", $data);
+
+    return $base->data;
+  }
+
+  public static function getPartialPayments($property, $currency, $language = 1) {
+
+    $data = '
+    {
+    "PropertyUID": '.$property.',
+    "SelectedCurrencyUID": '.$currency.',
+    "LanguageUID": '.$language.'
+    }
+    ';
+
+    $base = self::post("GetBEPartialPayments", $data);
+
+    return $base->data;
+  }
+
+  public static function getBankDepositConditions($property, $language = 1) {
+
+    $data = '
+    {
+      "PropertyUID": '.$property.',
+      "LanguageUID": '.$language.'    
+    }
+    ';
+
+    $base = self::post("GetBankDepositConditions", $data);
+
+    return $base->data; 
+  }
+
+  public static function getPropertyTermsAndConditions($property, $language) {
+
+
+    $data =
+    '
+    {
+      "PropertyUID": '.$property.',
+      "ReturnTotal": true,
+      "LanguageUID": '.$language.'
+    }
+    ';
+
+    $base = self::post("GetPropertyTermsAndConditions", $data);
+
+    return $base->data;   
+  }
+
+  public static function getPaymentGatewayClientProvider($property, $language) {
+
+
+    $data =
+    '
+    {
+      "PropertyUID": '.$property.',
+      "LanguageUID": '.$language.'
+    }
+    ';
+
+    $base = self::post("GetPaymentGatewayClientProvider", $data);
+
+    return $base->data;   
+  }
+
+  public static function getBEAvailableModules($property, $language) {
+
+    $data = '
+    {
+      "PropertyUID": '.$property.',
+      "LanguageUID": '.$language.'
+    }
+    ';
+
+    $base = self::post("GetBEAvailableModules", $data);
+
+    return $base->data;
+  }
 
 }

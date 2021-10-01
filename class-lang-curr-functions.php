@@ -641,6 +641,17 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
     
         }
 
+        public static function DiscountCulture($value, $language) {
+            if($language == 1) {
+                $value = number_format($value, 2, '.', ',');
+            }
+            else {
+                $value = number_format($value, 2, ',', '.');
+            }
+
+            return $value;
+        }
+
         public static function getLanguageObject() {
             return self::$language_object;
         }        

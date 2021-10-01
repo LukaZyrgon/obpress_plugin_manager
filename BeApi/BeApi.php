@@ -3669,4 +3669,38 @@ class BeApi
     return $base->data;
   }
 
+    public static function getGuestInfo($chain, $email, $language) {
+
+        $data = 
+        '
+        {
+          "Email": "'. $email .'",
+          "Client_UID": '.$chain.',
+          "LanguageUID": '. $language .',
+          "Version": 5.0
+        }
+        ';
+
+        $base = self::post("GetGuestInfo", $data);
+
+        return $base->data;
+    }
+
+
+  public static function getStateInfo($country_UID, $language) {
+    
+    $data =
+    '
+    {
+      "Country_UID": '.$country_UID.',
+      "LanguageUID": '.$language.'
+    }
+    ';
+
+    $base = self::post("ListStates", $data);
+
+    return $base->data;
+
+  }
+
 }

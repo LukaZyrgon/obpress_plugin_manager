@@ -616,7 +616,7 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
             }
             
     
-            if($language == 1) {
+            if ($language == 1) {
                 $value = number_format($value, 2, '.', ',');
                 $string = $currency_symbol." ".$value;
             }

@@ -14,7 +14,9 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
         private static $default_currency;
         private static $currencies;
         private static $currency;
-        private static $language_object;        
+        private static $language_object;    
+        private static $checkIn;
+        private static $checkOut;    
         public static $browserLanguagesList = [
             "ca-ES" => [
                 "name" => "Catalan (Spain)",
@@ -606,6 +608,18 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
 
         }        
 
+        public static function getCurrencyStringSymbol($currencies, $currency_id) {
+            $string = '';
+            foreach ($currencies as $currency_from_api) {
+                if($currency_from_api->UID == $currency_id) {
+                    $string = $currency_from_api->Symbol;
+                    break;
+                }
+            }
+    
+            return $string;
+        }
+
         public static function ValueAndCurrencyCulture($value, $currencies, $currency_id, $language) {
 
             foreach ($currencies as $currency_from_api) {
@@ -616,7 +630,7 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
             }
             
     
-            if ($language == 1) {
+            if($language == 1) {
                 $value = number_format($value, 2, '.', ',');
                 $string = $currency_symbol." ".$value;
             }
@@ -641,6 +655,57 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
     
         }
 
+        public static function ValueAndCurrencyCultureV4($value, $currencies, $currency_id, $language) {
+
+            foreach ($currencies as $currency_from_api) {
+                if($currency_from_api->UID == $currency_id) {
+                    // $currency_symbol = '<span class="currency_symbol_price">'.$currency_from_api->CurrencySymbol.'</span>';
+                    $symbol = $currency_from_api->CurrencySymbol;
+                    break;
+                }
+            }
+    
+    
+            if($language == 1) {
+                $value = number_format($value, 2, '.', ',');
+                $pieces = explode(".", $value);
+                $currency_symbol = '<span class="currency_symbol_price">'.$symbol.'</span>';
+                $value = $pieces[0].'.<span class="decimal_value_price">'.$pieces[1].'</span>';
+                $string = $currency_symbol." ".$value;
+            }
+            elseif($language == 8) {
+                $value = number_format($value, 2, ',', '.');
+                $pieces = explode(",", $value);
+                $currency_symbol = '<span class="currency_symbol_price">'.$symbol.'</span>';
+                $value = $pieces[0].',<span class="decimal_value_price">'.$pieces[1].'</span>';
+                $string = $currency_symbol." ".$value;
+            }
+            elseif($language == 3) {
+                $value = number_format($value, 2, ',', '.');
+                $pieces = explode(",", $value);
+                $currency_symbol = '<span class="currency_symbol_price symbol_right">'.$symbol.'</span>';
+                $value = $pieces[0].',<span class="decimal_value_price">'.$pieces[1].'</span>';
+                $string = $value." ".$currency_symbol;
+            }
+            elseif ($language == 2 || $language == 4) {
+                $value = number_format($value, 2, ',', ' ');
+                $pieces = explode(",", $value);
+                $currency_symbol = '<span class="currency_symbol_price symbol_right">'.$symbol.'</span>';
+                $value = $pieces[0].',<span class="decimal_value_price">'.$pieces[1].'</span>';
+                $string = $value." ".$currency_symbol;
+            }
+            else {
+                $value = number_format($value, 2, ',', '.');
+                $pieces = explode(",", $value);
+                $currency_symbol = '<span class="currency_symbol_price symbol_right">'.$symbol.'</span>';
+                $value = $pieces[0].',<span class="decimal_value_price">'.$pieces[1].'</span>';
+                $string = $value." ".$currency_symbol;
+            }
+    
+            return $string;
+    
+        }
+
         public static function DiscountCulture($value, $language) {
             if($language == 1) {
                 $value = number_format($value, 2, '.', ',');
@@ -650,6 +715,45 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
             }
 
             return $value;
+        }
+
+        public static function getCheckTimes($checkInRequest = null, $checkOutRequest = null)
+        {
+    
+            $checkInTime = false;
+            $checkOutTime = false;
+    
+            $checkInDates = explode(",", $checkInRequest);
+            $checkOutDates = explode(",", $checkOutRequest);
+    
+            if (count(array_unique($checkInDates)) > 1 || count(array_unique($checkOutDates)) > 1) {
+                self::$diffDates = true;
+            }
+    
+            $checkInTime = \DateTime::createFromFormat('dmY', $checkInDates[0]);
+            $checkOutTime = \DateTime::createFromFormat('dmY', $checkOutDates[0]);
+    
+            //check if checkin date is real and valid, if not set it to tomorrow
+            if (!$checkInTime || $checkInRequest == null) {
+                $dateTime = new \DateTime('today');
+                $checkIn = $dateTime->format('d.m.Y'); //today
+            } else {
+                $checkIn = $checkInTime->format('d.m.Y');
+            }
+    
+            if (!$checkOutTime ||  $checkOutRequest == null) { //date if real false if not
+                $dateTime = new \DateTime('tomorrow'); //tomorrow
+                $checkOut = $dateTime->format('d.m.Y');
+            } else {
+                $checkOut = $checkOutTime->format('d.m.Y');
+    
+                if ($checkInTime >= $checkOutTime) {
+                    $checkOut = $checkInTime->add(new \DateInterval('P1D'))->format('d.m.Y');
+                }
+            }
+    
+            self::$checkIn = $checkIn;
+            self::$checkOut = $checkOut;
         }
 
         public static function getLanguageObject() {
@@ -671,6 +775,12 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
             return self::$default_currency;
         }
 
+        public static function getCheckIn() {
+            return self::$checkIn;
+        }
+        public static function getCheckOut() {
+            return self::$checkOut;
+        }
 
     }
 }

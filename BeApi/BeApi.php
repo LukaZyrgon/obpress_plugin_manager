@@ -2311,6 +2311,7 @@ class BeApi
     'hotel_folders' => 1800,
     'style' => 1800,
     'child_terms' => 1800,
+    'available_incentives' => 1800,
     'available_incentives_4' => 1800,
     'descriptive_infos' => 900,
     'hotel_descriptive_info' => 900,

@@ -2581,16 +2581,65 @@ class BeApi
     return $base->data;
   }
 
-  public static function getHotelAvailCalendar($hotel_id, $date_from, $date_to, $currency = null)
+  public static function getHotelAvailCalendar($hotel_id, $date_from, $date_to, $currency = null, $adults ,$children, 
+    $children_ages)
   {
 
-    $adults = get_option('calendar_adults');
 
-    if ($adults == 1) {
-      $ResGuestRPH = '0';
-    } else {
-      $ResGuestRPH = '0,1';
-    }
+        $children_ages = explode(';', $children_ages);
+
+        //adults
+        $adults_str = "";
+        $id = 0;
+    
+        $ids = "";
+        for ($i = 1; $i <= $adults; $i++) {
+            $ids .= $id;
+            if ($i!=$adults) {
+                $ids .= ',';
+            }
+            $id++;
+        }
+
+        $adults_str.= '
+        {
+            "Age": "",
+            "AgeQualifyCode": 10,
+            "Count": ' . $adults . ',
+            "ResGuestRPH": [
+                ' . $ids . '
+            ]
+        },
+        ';
+    
+
+        //children
+        $children_str = "";
+        for ($i = 1; $i <= $children; $i++) {
+            $children_str .= '
+                {
+          "Age": "' . $children_ages[$i-1] . '",
+          "AgeQualifyCode": 8,
+          "Count": 1,
+          "ResGuestRPH": [
+            ' . $id . '
+          ]
+            }
+        ';
+
+        if ($i == $children) {
+            $children_str .= '';
+          }
+        else {
+            $children_str .= ',';
+          }
+            $id++;
+        }
+        $children_str = trim($children_str, ",");
+        $children_str = rtrim($children_str, ",");
+
+        $adults_children = substr($adults_str . $children_str , 0, -1);
+
 
     $data =
       '
@@ -2622,14 +2671,7 @@ class BeApi
                         {
                           "GuestCountsType": {
                             "GuestCounts": [
-                              {
-                                "Age": "",
-                                "AgeQualifyCode": 10,
-                                "Count": ' . $adults . ',
-                                "ResGuestRPH": [
-                                  ' . $ResGuestRPH . '
-                                ]
-                              }
+                            ' . $adults_children . '
                             ]
                           },
                           "Quantity": 1,
@@ -2639,13 +2681,137 @@ class BeApi
                 }
               }
             }
-          }
-		';
+          }';
 
     $base = self::post("GetHotelAvailCalendar", $data);
 
     return $base->data;
+
   }
+
+
+
+
+
+
+
+
+  public static function getHotelAvailCalendarV4($hotel_id, $date_from, $date_to, $currency = null, $adults ,$children, 
+    $children_ages)
+  {
+
+
+        $children_ages = explode(';', $children_ages);
+
+        //adults
+        $adults_str = "";
+        $id = 0;
+    
+        $ids = "";
+        for ($i = 1; $i <= $adults; $i++) {
+            $ids .= $id;
+            if ($i!=$adults) {
+                $ids .= ',';
+            }
+            $id++;
+        }
+
+        $adults_str.= '
+        {
+            "Age": "",
+            "AgeQualifyCode": 10,
+            "Count": ' . $adults . ',
+            "ResGuestRPH": [
+                ' . $ids . '
+            ]
+        },
+        ';
+    
+
+        //children
+        $children_str = "";
+        for ($i = 1; $i <= $children; $i++) {
+            $children_str .= '
+                {
+          "Age": "' . $children_ages[$i-1] . '",
+          "AgeQualifyCode": 8,
+          "Count": 1,
+          "ResGuestRPH": [
+            ' . $id . '
+          ]
+            }
+        ';
+
+        if ($i == $children) {
+            $children_str .= '';
+          } else {
+            $children_str .= ',';
+          }
+            $id++;
+        }
+
+        $children_str = trim($children_str, ",");
+        $children_str = rtrim($children_str, ",");
+
+        $adults_children = substr($adults_str . $children_str , 0, -1);
+
+        $data =
+            '{
+                "MaxResponses": 100,
+                "RequestedCurrency": ' . $currency . ',
+                "PageNumber": 10,
+                "EchoToken": "' . self::createGUID() . '",
+                "TimeStamp": "' . gmdate(DATE_W3C) . '",
+                "Target": 1,
+                "Version": 3.0,
+                "PrimaryLangID": 1,
+                "AvailRatesOnly": true,
+                "BestOnly": false,
+                "HotelSearchCriteria": {
+                  "Criterion": {
+                    "GetPricesPerGuest": true,
+                    "HotelRefs": [
+                      {
+                        "HotelCode": ' . $hotel_id . '
+                      }
+                    ],
+                    "StayDateRange": {
+                      "Start": "' . date("Y-m-d\TH:i:sP", strtotime($date_from)) . '",
+                      "End": "' . date("Y-m-d\TH:i:sP", strtotime($date_to)) . '"
+                    },
+                    "RoomStayCandidatesType": {
+                      "RoomStayCandidates": [
+                            {
+                              "GuestCountsType": {
+                                "GuestCounts": [
+                                ' . $adults_children . '
+                                ]
+                              },
+                              "Quantity": 1,
+                              "RPH": 0
+                            }
+                      ]
+                    }
+                  }
+                }
+              }';
+
+        $base = self::post("GetHotelAvailCalendar", $data);
+
+        //return $data;
+
+        return $base->data;
+
+  }
+
+
+
+
+
+
+
+
+
 
   public static function getChainAvailCalendar($chain, $date_from, $date_to, $currency = null)
   {

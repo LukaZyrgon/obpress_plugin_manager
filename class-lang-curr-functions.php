@@ -16,7 +16,8 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
         private static $currency;
         private static $language_object;    
         private static $checkIn;
-        private static $checkOut;    
+        private static $checkOut;
+        private static $diffDates = false;    
         public static $browserLanguagesList = [
             "ca-ES" => [
                 "name" => "Catalan (Spain)",
@@ -581,7 +582,11 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
                 unset($default_curr_lang[$key]);
             }
 
-            $hotel_currencies = BeApi::getCurrenciesProperty($property);
+            // $hotel_currencies = BeApi::getCurrenciesProperty($property);
+            $hotel_currencies = BeApi::ApiCache('hotel_currencies_' . $property, BeApi::$cache_time['hotel_currencies'], function () use ($property) {
+                return BeApi::getCurrenciesProperty($property);
+            });
+
             $hotel_currencies = $hotel_currencies->Result;
 
     

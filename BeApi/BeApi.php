@@ -4018,4 +4018,18 @@ return $base->data;
 
   }
 
+  public static function getChildTerms($property){
+      
+    $data = 
+    '
+    {
+        "PropertyUID": '.$property.'
+    }
+    ';
+
+    $base = self::post("GetChildTerms", $data);
+
+    return $base->data;
+  }
+
 }

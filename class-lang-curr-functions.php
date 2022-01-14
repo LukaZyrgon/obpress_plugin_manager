@@ -787,5 +787,451 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
             return self::$checkOut;
         }
 
+        function dateFormatCulture($date, $language, $format) {
+
+            if(strpos($date, '/')) {
+                $date = strtotime(trim(str_replace('/', '-', str_replace('-', '', $date))));
+            }
+            else {
+                $date = strtotime($date);
+            }
+            
+            $date = date(DATE_ISO8601, $date);
+            $date = new DateTime($date);
+
+
+            //1 => english
+            //2 => french
+            //3 => spanish
+            //4 => pt
+            //8 => pt/br
+    
+            if($language == 1) {
+                if($format == 1) {
+                    $date = $date->format('F, Y');
+                }
+                elseif ($format == 2) {
+                    $date = $date->format('F jS, Y');
+                }
+                elseif ($format == 3) {
+                    $date = $date->format('l, F j, Y');
+                }
+                elseif ($format == 4) {
+                    $date = $date->format('D, M j');
+                }
+                elseif ($format == 5) {
+                    $date = $date->format('D, F j');
+                }
+                elseif ($format == 6) {
+                    $date = $date->format('F j');
+                }
+                elseif ($format == 7) {
+                    $date = $date->format('M j');
+                }
+                elseif ($format == 8) {
+                    $date = $date->format('d, D');
+                    $date = strtolower($date);
+                }
+                elseif ($format == 9) {
+                    $date = $date->format('n/j/Y');
+                }
+                elseif ($format == 10) {
+                    $date = $date->format('g:i A');
+                }
+                elseif ($format == 11) {
+                    $date = $date->format('g:i A');
+                }
+                elseif ($format == 12) {
+                    $date = $date->format('D');
+                }
+                elseif ($format == 13) {
+                    $date = $date->format('D');
+                    $date = substr_replace($date, "", -1);
+                    $date = strtoupper($date);
+                }
+                // elseif ($format == 14) {
+                //     $date = $date->format('ddd, MMM D Y');
+                // }
+                // elseif($format == 15) {
+                //     $date = $date->format('DD, dddd');
+                // }
+            }
+            elseif ($language == 2) {
+                if($format == 1) {
+                    $date = $date->format('F, Y');
+                }
+                elseif ($format == 2) {
+                    $date = $date->format('j F Y');
+                    $date = strtolower($date);
+                }
+                elseif ($format == 3) {
+                    $date = $date->format('l, j F Y');
+                    $date = strtolower($date);
+                    $date = ucfirst($date);
+                }
+                elseif ($format == 4) {
+                    $date = $date->format('D, j M');
+                    $date = strtolower($date);
+                    $date = ucfirst($date);
+                }
+                elseif ($format == 5) {
+                    $date = $date->format('D, j F');
+                    $date = strtolower($date);
+                    $date = ucfirst($date);
+                }
+                elseif ($format == 6) {
+                    $date = $date->format('j F');
+                    $date = strtolower($date);
+                }
+                elseif ($format == 7) {
+                    $date = $date->format('j D');
+                }
+                elseif ($format == 8) {
+                    $date = $date->format('d, D.');
+                    $date = strtolower($date);
+                }
+                elseif ($format == 9) {
+                    $date = $date->format('d/m/Y');
+                }
+                elseif ($format == 10) {
+                    $date = $date->format('H:i');
+                }
+                elseif ($format == 11) {
+                    $hour = $date->format('G');
+                    $minutes = $date->format('i');
+    
+                    $date = $hour . "h:" . $minutes;
+                }
+                elseif ($format == 12) {
+                    $date = $date->format('D');
+                }
+                elseif ($format == 13) {
+                    $date = $date->format('D');
+                    $date = substr_replace($date, "", -1);
+                    $date = strtoupper($date);
+                }
+                // elseif ($format == 14) {
+                //     $date = $date->format('ddd, MMM D Y');
+                // }
+                // elseif($format == 15) {
+                //     $date = $date->format('DD, dddd');
+                // }
+            }
+            elseif ($language == 3) {
+                if($format == 1) {
+                    $date = $date->format('F, Y');
+                    $date = ucfirst($date);
+                }
+                elseif ($format == 2) {
+                    $day = $date->format('j');
+                    $month = $date->format('F');
+                    $month = strtolower($month);
+                    $year = $date->format('Y');
+    
+                    $date = $day . " de " . $month . " de " . $year;
+                }
+                elseif ($format == 3) {
+                    $day_name = $date->format('l');
+                    $day_name = ucfirst($day_name);
+                    $day = $date->format('j');
+                    $month = $date->format('F');
+                    $month = strtolower($month);
+                    $year = $date->format('Y');
+    
+                    $date = $day_name . ", " . $day . " de " . $month . " de " . $year;
+                }
+                elseif ($format == 4) {
+                    $day_name = $date->format('D');
+                    $day = $date->format('j');
+                    $month = $date->format('M');
+                    $month = strtolower($month);
+                    $date = $day_name . ', ' . $day . ' ' . $month;
+                }
+                elseif ($format == 5) {
+                    $day_name = $date->format('D');
+                    $day = $date->format('j');
+                    $month = $date->format('F');
+                    $month = strtolower($month);
+                    $date = $day_name . ', ' . $day . ' ' . $month;
+                }
+                elseif ($format == 6) {
+                    $day = $date->format('j');
+                    $month = $date->format('M');
+                    $month = strtolower($month);
+                    $date = $day . " de " . $month;
+                }
+                elseif ($format == 7) {
+                    $day = $date->format('j');
+                    $month = $date->format('M');
+                    $date = $day . " " . $month;
+                }
+                elseif ($format == 8) {
+                    $date = $date->format('d, M');
+                    $date = strtolower($date);
+                }
+                elseif ($format == 9) {
+                    $date = $date->format('d/m/Y');
+                }
+                elseif ($format == 10) {
+                    $date = $date->format('G:i');
+                }
+                elseif ($format == 11) {
+                    $hour = $date->format('G');
+                    $minutes = $date->format('i');
+                    $date = $hour . 'h' . $minutes . 'm';
+                }
+                elseif ($format == 12) {
+                    $date = $date->format('D');
+                }
+                elseif ($format == 13) {
+                    $date = $date->format('D');
+                    $date = substr_replace($date, "", -1);
+                    $date = strtoupper($date);
+                }
+                // elseif ($format == 14) {
+                //     $day_name = $date->format('ddd');
+                //     $day_name = str_replace('.', '', $day_name);
+    
+                //     $day = $date->format('D');
+    
+                //     $month = $date->format('MMM');
+                //     $month = str_replace('.', '', $month);
+    
+                //     $year = $date->format('Y');
+    
+                //     $date = $day_name . ', ' . $month . ' ' . $day . ' ' . $year;
+                // }
+                // elseif($format == 15) {
+                //     $date = $date->format('DD, dddd');
+                // }
+            }
+            elseif ($language == 4) {
+                if($format == 1) {
+                    $date = $date->format('F, Y');
+                    $date = ucfirst($date);
+                }
+                elseif ($format == 2) {
+                    $day = $date->format('j');
+                    $month = $date->format('F');
+                    $month = strtolower($month);
+                    $year = $date->format('Y');
+                    $date = $day . " de " . $month . " de " . $year;
+                }
+                elseif ($format == 3) {
+                    $day_name = $date->format('l');
+                    $day = $date->format('j');
+                    $month = $date->format('F');
+                    $month = strtolower($month);
+                    $year = $date->format('Y');
+                    $date = $day_name . ", " . $day . " de " . $month . " de " . $year;
+                }
+                elseif ($format == 4) {
+                    $day_name = $date->format('D');
+                    $day = $date->format('j');
+                    $month = $date->format('M');
+                    $month = strtolower($month);
+                    $date = $day_name . ', ' . $day . ' ' . $month;
+                }
+                elseif ($format == 5) {
+                    $day_name = $date->format('D');
+                    $day = $date->format('j');
+                    $month = $date->format('F');
+                    $month = strtolower($month);
+                    $date = $day_name . ', ' . $day . ' ' . $month;
+                }
+                elseif ($format == 6) {
+                    $day = $date->format('j');
+                    $month = $date->format('F');
+                    $month = strtolower($month);
+                    $date = $day . " de " . $month;
+                }
+                elseif ($format == 7) {
+                    $day = $date->format('j');
+                    $month = $date->format('M');
+                    $date = $day . " " . $month;
+                }
+                elseif ($format == 8) {
+                    $date = $date->format('d, D');
+                    $date = strtolower($date);
+                }
+                elseif ($format == 9) {
+                    $date = $date->format('d/m/Y');
+                }
+                elseif ($format == 10) {
+                    $date = $date->format('G:i');
+                }
+                elseif ($format == 11) {
+                    $hour = $date->format('H');
+                    $minutes = $date->format('i');
+                    $date = $hour . 'h' . $minutes;
+                }
+                elseif ($format == 12) {
+                    $date = $date->format('D');
+                }
+                elseif ($format == 13) {
+                    $date = $date->format('D');
+                    $date = substr_replace($date, "", -1);
+                    $date = strtoupper($date);
+                }
+                // elseif ($format == 14) {
+                //     $day_name = $date->format('ddd');
+                //     $day_name = str_replace('.', '', $day_name);
+    
+                //     $day = $date->format('D');
+    
+                //     $month = $date->format('MMM');
+                //     $month = str_replace('.', '', $month);
+    
+                //     $year = $date->format('Y');
+    
+                //     $date = $day_name . ', ' . $month . ' ' . $day . ' ' . $year;
+                // }
+                // elseif($format == 15) {
+                //     $date = $date->format('DD, dddd');
+                // }
+            }
+            elseif ($language == 8) {
+                if($format == 1) {
+                    $date = $date->format('F, Y');
+                    $date = ucfirst($date);
+                }
+                elseif ($format == 2) {
+                    $day = $date->format('j');
+                    $month = $date->format('F');
+                    $month = strtolower($month);
+                    $year = $date->format('Y');
+                    $date = $day . " de " . $month . " de " . $year;
+                }
+                elseif ($format == 3) {
+                    $day_name = $date->format('l');
+                    $day = $date->format('j');
+                    $month = $date->format('F');
+                    $month = strtolower($month);
+                    $year = $date->format('Y');
+                    $date = $day_name . ", " . $day . " de " . $month . " de " . $year;
+                }
+                elseif ($format == 4) {
+                    $day_name = $date->format('D');
+                    $day = $date->format('j');
+                    $month = $date->format('M');
+                    $month = strtolower($month);
+                    $date = $day_name . ', ' . $day . ' ' . $month;
+                }
+                elseif ($format == 5) {
+                    $day_name = $date->format('D');
+                    $day = $date->format('j');
+                    $month = $date->format('F');
+                    $month = strtolower($month);
+                    $date = $day_name . ', ' . $day . ' ' . $month;
+                }
+                elseif ($format == 6) {
+                    $day = $date->format('j');
+                    $month = $date->format('F');
+                    $month = strtolower($month);
+                    $date = $day . " de " . $month;
+                }
+                elseif ($format == 7) {
+                    $day = $date->format('j');
+                    $month = $date->format('M');
+                    $date = $day . " " . $month;
+                }
+                elseif ($format == 8) {
+                    $date = $date->format('d, D');
+                    $date = strtolower($date);
+                }
+                elseif ($format == 9) {
+                    $date = $date->format('d/m/Y');
+                }
+                elseif ($format == 10) {
+                    $date = $date->format('G:i');
+                }
+                elseif ($format == 11) {
+                    $hour = $date->format('H');
+                    $minutes = $date->format('i');
+                    $date = $hour . 'h' . $minutes;
+                }
+                elseif ($format == 12) {
+                    $date = $date->format('D');
+                }
+                elseif ($format == 13) {
+                    $date = $date->format('D');
+                    $date = substr_replace($date, "", -1);
+                    $date = strtoupper($date);
+                }
+                // elseif ($format == 14) {
+                //     $day_name = $date->format('ddd');
+                //     $day_name = str_replace('.', '', $day_name);
+    
+                //     $day = $date->format('D');
+    
+                //     $month = $date->format('MMM');
+                //     $month = str_replace('.', '', $month);
+    
+                //     $year = $date->format('Y');
+    
+                //     $date = $day_name . ', ' . $month . ' ' . $day . ' ' . $year;
+                // }
+                // elseif($format == 15) {
+                //     $date = $date->format('DD, dddd');
+                // }
+            }
+            else {
+                if($format == 1) {
+                    $date = $date->format('F, Y');
+                }
+                elseif ($format == 2) {
+                    $date = $date->format('F jS, Y');
+                }
+                elseif ($format == 3) {
+                    $date = $date->format('l, F j, Y');
+                }
+                elseif ($format == 4) {
+                    $date = $date->format('D, M j');
+                }
+                elseif ($format == 5) {
+                    $date = $date->format('D, F j');
+                }
+                elseif ($format == 6) {
+                    $date = $date->format('F j');
+                }
+                elseif ($format == 7) {
+                    $date = $date->format('M j');
+                }
+                elseif ($format == 8) {
+                    $date = $date->format('d, D');
+                    $date = strtolower($date);
+                }
+                elseif ($format == 9) {
+                    $date = $date->format('n/j/Y');
+                }
+                elseif ($format == 10) {
+                    $date = $date->format('g:i A');
+                }
+                elseif ($format == 11) {
+                    $date = $date->format('g:i A');
+                }
+                elseif ($format == 12) {
+                    $date = $date->format('D');
+                }
+                elseif ($format == 13) {
+                    $date = $date->format('D');
+                    $date = substr_replace($date, "", -1);
+                    $date = strtoupper($date);
+                }
+                // elseif ($format == 14) {
+                //     $date = $date->format('ddd, MMM D Y');
+                // }
+                // elseif($format == 15) {
+                //     $date = $date->format('DD, dddd');
+                // }
+            }
+            
+            return $date;
+        }
+
+
+
+
+
     }
 }

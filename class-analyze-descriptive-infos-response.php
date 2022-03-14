@@ -108,8 +108,10 @@ class AnalyzeDescriptiveInfosRes {
 
         $amenities_with_images = [];
 
-        foreach($amenities as $amenity) {
-            $amenity->Image = $this->getImageForAmenitieV4($amenity->Code);
+        if(!empty($amenities)) {
+            foreach($amenities as $amenity) {
+                $amenity->Image = $this->getImageForAmenitieV4($amenity->Code);
+            }
         }
 
         return$amenities;

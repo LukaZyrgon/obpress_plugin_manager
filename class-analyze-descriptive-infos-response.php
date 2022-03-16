@@ -369,36 +369,18 @@ class AnalyzeDescriptiveInfosRes {
     }
 
     public function getRoomsViewTypes() {
-
         $roomsViewTypes = [];
-
-
         //going through each hotel
         foreach(self::$data->HotelDescriptiveContentsType->HotelDescriptiveContents as $hotel){
-
             if (isset($hotel->FacilityInfo->GuestRoomsType)) {
-
                 foreach ($hotel->FacilityInfo->GuestRoomsType->GuestRooms as $room) {
-
                     if ( $room->AmenitiesType != null ) {
-
-
-
-                        // $viewTypes = collect($room->AmenitiesType->RoomAmenities)->filter(function ($value) {
-                        //     return $value->RoomAmenityCategory == 'Room Type View';
-                        // });
-
                         $viewTypes = [];
-
                         foreach($room->AmenitiesType->RoomAmenities as $key => $RoomAmenity) {
                             if($RoomAmenity->RoomAmenityCategory == 'Room Type View') {
                                 $viewTypes[] = $RoomAmenity;
                             }
                         }
-
-
-                        //TODO Continue when confirm icon situation with Gabriel
-
                         foreach ($viewTypes as $key1 => $viewType) {
                             foreach ($this->roomViewIcons as $key2 => $roomViewIcon) {
                                 if($viewType->Code == $key2) {
@@ -408,7 +390,6 @@ class AnalyzeDescriptiveInfosRes {
                         }
 
                         $roomsViewTypes[$hotel->HotelRef->HotelCode][$room->ID] = $viewTypes;
-
                     }
                 }
             }
@@ -784,36 +765,43 @@ class AnalyzeDescriptiveInfosRes {
 
         //going through each hotel
         foreach(self::$data->HotelDescriptiveContentsType->HotelDescriptiveContents as $hotel){
+            if (isset($hotel->FacilityInfo->GuestRoomsType)) {
+                foreach ($hotel->FacilityInfo->GuestRoomsType->GuestRooms as $room) {
+                    if ( $room->AmenitiesType != null ) {
+                        $bedTypes = [];
 
-            foreach ($hotel->FacilityInfo->GuestRoomsType->GuestRooms as $room) {
+                        foreach($room->AmenitiesType->RoomAmenities as $key => $RoomAmenity) {
+                            if($RoomAmenity->RoomAmenityCategory == 'Bed Type') {
+                                $bedTypes[] = $RoomAmenity;
+                            }
+                        }
+                        foreach ($bedTypes as $key1 => $viewType) {
+                            foreach ($this->roomBedIcons as $key2 => $roomBedIcon) {
+                                if($viewType->Code == $key2) {
+                                    $bedTypes[$key1]->URL = $roomBedIcon;
+                                }
+                            }
+                        }
 
-                $bedTypes = [];
-
-                foreach ( $room->AmenitiesType->RoomAmenities as $amenity ) {
-
-                    if ( $amenity ->RoomAmenityCategory == 'Bed Type' ) {
-                        array_push( $bedTypes , $amenity );
+                        $roomsBedTypes[$hotel->HotelRef->HotelCode][$room->ID] = $bedTypes;
                     }
-
                 }
-
-                //var_dump( $bedTypes );
-
-                // foreach ($bedTypes as $bedType) {
-                //     foreach ($this->roomBedIcons as $key => $roomBedIcon) {
-                //         if($bedType->Code == $key) {
-                //             $bedType->URL = $roomBedIcon;
-                //         }
-                //     }
-                // }
-
-                $roomsBedTypes[$hotel->HotelRef->HotelCode][$room->ID] = $bedTypes;
-
             }
         }
 
         return $roomsBedTypes;
     }
+
+    public $roomBedIcons = [
+        144 => "Double.svg",
+        145 => "King.svg",
+        146 => "Queen.svg",
+        147 => "Sofa.svg",
+        148 => "Twin.svg",
+        149 => "Single.svg",
+        150 => "Runhouse.svg",
+        151 => "Dormbed.svg",
+    ];
 
     public function getRoomsBedTypesCodes($hotel_code, $room_id) {
         if(isset($this->getRoomsBedTypes()[$hotel_code][$room_id])){

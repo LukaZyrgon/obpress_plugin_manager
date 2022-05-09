@@ -235,7 +235,7 @@ jQuery(document).ready(function () {
     }
 
     data.selectedCurrency = selectedCurrency;
-    data.selectedLang = selectedLang;
+    // data.selectedLang = selectedLang;
     data.calendarAdults = calendarAdults;
     data.removedHotels = JSON.stringify(removedHotels);
     data.changedMaxRooms = changedMaxRooms;

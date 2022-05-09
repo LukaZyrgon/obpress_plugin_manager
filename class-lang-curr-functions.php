@@ -231,6 +231,14 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
                 "name" => "Galician (Spain)",
                 "code" => 3
             ],
+            "pt-pt" => [
+                "name" => "Portugeese (Portugal)",
+                "code" => 4
+            ],            
+            "pt-br" => [
+                "name" => "Portugeese (Brasil)",
+                "code" => 8
+            ],
             "pt-BR" => [
                 "name" => "Portugeese (Brasil)",
                 "code" => 8
@@ -252,18 +260,22 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
                 if ($language->UID == 1) {
                     $language->Path = "en_US";
                     $language->Icon = get_template_directory_uri() . '/assets/icons/lang/icon_Lang_American.svg';
+                    $language->Wpml = 'en';
                 }
                 if ($language->UID == 2) {
                     $language->Path = "fr_FR";
                     $language->Icon = get_template_directory_uri() . '/assets/icons/lang/icon_Lang_French.svg';
+                    $language->Wpml = 'fr';
                 }
                 if ($language->UID == 3) {
                     $language->Path = "es_ES";
                     $language->Icon = get_template_directory_uri() . '/assets/icons/lang/icon_Lang_Spanish.svg';
+                    $language->Wpml = 'es';
                 }
                 if ($language->UID == 4) {
                     $language->Path = "pt_PT";
                     $language->Icon = get_template_directory_uri() . '/assets/icons/lang/icon_Lang_PortuguesePT.svg';
+                    $language->Wpml = 'pt-pt';
                 }
                 if ($language->UID == 5) {
                     $language->Path = "da_DA";
@@ -280,6 +292,7 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
                 if ($language->UID == 8) {
                     $language->Path = "pt_BR";
                     $language->Icon = get_template_directory_uri() . '/assets/icons/lang/icon_Lang_PortugueseBR.svg';
+                    $language->Wpml = 'pt-br';
                 }
             }
     
@@ -376,21 +389,21 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
                     $language_object = clone $languages[0];
                 }
             }
-            elseif(!empty(get_option('default_language_id')) && get_option('default_language_id') != null){
-                $language = (int)get_option('default_language_id');
-                foreach ($languages as $lang) {
-                    if($lang->UID == $language) {
-                        $language_object = clone $lang;
-                        $comparing = true;
-                        $langPrefix = $lang->Path;
-                        break;                        
-                    }
-                }
-                if($comparing == false) {
-                    $language = $languages[0]->UID;
-                    $language_object = clone $languages[0];
-                }                
-            }
+            // elseif(!empty(get_option('default_language_id')) && get_option('default_language_id') != null){
+            //     $language = (int)get_option('default_language_id');
+            //     foreach ($languages as $lang) {
+            //         if($lang->UID == $language) {
+            //             $language_object = clone $lang;
+            //             $comparing = true;
+            //             $langPrefix = $lang->Path;
+            //             break;                        
+            //         }
+            //     }
+            //     if($comparing == false) {
+            //         $language = $languages[0]->UID;
+            //         $language_object = clone $languages[0];
+            //     }                
+            // }
             elseif(isset($languageFromBrowser)) {
                 foreach (self::$browserLanguagesList as $key => $browserLanguage) {
                     if($key == $languageFromBrowser) {
@@ -428,13 +441,12 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
             if ($comparing == true) {
                 self::$language_path = $langPrefix;
             }
-    
-            $_GET["lang"] = $language_object->Code;
+            $_GET["lang"] = $language_object->Wpml;
             
             self::$languages = $languages;
             self::$language = $language;
             self::$language_object = $language_object;
-    
+
             return true;
         }
  
@@ -521,9 +533,10 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
                 $language_object = clone $hotel_languages[0];
                 $defaultLangPrefix = $hotel_languages[0]->Path;
             }
+            
+
     
-    
-            $_GET["lang"] = $language_object->Code;
+            $_GET["lang"] = $language_object->Wpml;
     
             if ($comparing == false) {
                 $language = $default_curr_lang[$property]->BaseLanguageUID;                

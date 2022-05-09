@@ -90,19 +90,19 @@ $theme = wp_get_theme();
 
 //If theme is different than OBPress, this plugin will be responsible for setting the locale, else the theme header will do it
 
-add_filter('locale', 'set_my_locale');
+// add_filter('locale', 'set_my_locale');
 
-//TODO -> Copy code from theme language
+// //TODO -> Copy code from theme language
 
-function set_my_locale($lang)
-{
-  if (isset($_GET['lang'])) {
-    $lang = str_replace('-', '_', $_GET['lang']);
-    return $lang;
-  } elseif (get_option('default_language') != null) {
-    return get_option('default_language');
-  } else {
-    // return original language
-    return $lang;
-  }
-}
+// function set_my_locale($lang)
+// {
+//   if (isset($_GET['lang'])) {
+//     $lang = str_replace('-', '_', $_GET['lang']);
+//     return $lang;
+//   } elseif (get_option('default_language') != null) {
+//     return get_option('default_language');
+//   } else {
+//     // return original language
+//     return $lang;
+//   }
+// }

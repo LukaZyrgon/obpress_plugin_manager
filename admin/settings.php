@@ -14,14 +14,14 @@ require_once(dirname(__FILE__) . '/settingsController.php');
     </select>
 </div>
 
-<div class="obpress-select-language">
+<!-- <div class="obpress-select-language">
     <h3>Select Language</h3>
     <select class="language-select">
         <?php foreach ($languages as $language) : ?>
             <option class="language-select-option" data-language-id="<?= $language->UID ?>"<?php if(get_option('default_language_id') == $language->UID){echo 'selected';} ?>><?= $language->Name ?></option>
         <?php endforeach; ?>
     </select>
-</div>
+</div> -->
 
 <div class="obpress-calendar-options">
     <h3>Calendar Options</h3>

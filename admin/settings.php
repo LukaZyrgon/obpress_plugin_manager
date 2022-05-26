@@ -36,7 +36,16 @@ require_once(dirname(__FILE__) . '/settingsController.php');
         <label for="">Allow selecting unavailable dates in calendar</label>
         <input type="checkbox" id="obpress-calendar-allow-checkbox">
     </div>
+
+
+    <div class="obpress-children-allowed">
+        <label for="">Disable children in occupancy</label>
+        <input type="checkbox" id="obpress-children-disabled">
+    </div>
+    
 </div>
+
+
 
 <?php if(empty(get_option('hotel_id'))) : ?>
     <div class="obpress-select-list-hotel" data-removed-hotels="<?= get_option('removed_hotels') ?>">

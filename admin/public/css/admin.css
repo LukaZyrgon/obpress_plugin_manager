@@ -1,3 +1,31 @@
+#wpwrap {
+    background-color: #fff;
+}
+
+#wpcontent {
+    background-color: #fff;
+    padding-left: 0px;
+}
+
+.obpress-contain {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+.obpress-wrap {
+    padding: 20px;
+}
+
+.content-container {
+    padding: 20px;
+    max-width: unset;
+    clear: both;
+    border: solid 1px #ccc;
+    text-align: left;
+}
+
 input {
     width: 400px;
 }
@@ -46,20 +74,36 @@ input::-webkit-inner-spin-button {
 }
 
 .obpress-welcome {
-    margin-bottom: 60px;
-    margin-top: 40px;
+    text-align: center;
+    font-size: 25px;
+    margin-top: 0px;
 }
 
-.obpress-select-currency, .obpress-select-language, .obpress-calendar-options, .obpress-select-list-hotel, .obpress-select-max-rooms, .obpress-footer-info, .obpress-google-maps {
+.obpress-select-currency, .obpress-select-language, .obpress-calendar-options, .obpress-select-list-hotel, .obpress-select-max-rooms, .obpress-footer-info, .obpress-room-select {
     margin-bottom: 20px;
 }
 
-.obpress-select-currency h3, .obpress-select-language h3, .obpress-calendar-options h3, .obpress-select-list-hotel .list-hotel-folder, .obpress-select-max-rooms h3, .obpress-footer-info h3, .obpress-google-maps h3 {
-    margin-bottom: 5px;
+.obpress-select-currency, .obpress-select-language, .obpress-calendar-options, .obpress-select-list-hotel, .obpress-footer-info, .obpress-google-maps, .obpress-room-select {
+    width: fit-content;
 }
 
-.obpress-select-calendar-adults label {
-    margin-right: 20px;
+.obpress-select-currency h3, .obpress-select-language h3, .obpress-calendar-options h3, .obpress-select-list-hotel .list-hotel-folder, .obpress-select-max-rooms h3, .obpress-footer-info h3, .obpress-google-maps h3 {
+    margin-bottom: 10px;
+    margin-top: 0px;
+}
+
+.obpress-select-max-rooms h3 {
+    margin-bottom: 20px;
+}
+
+.obpress-select-calendar-adults, .obpress-hotel-select {
+    margin-bottom: 10px;
+}
+
+.obpress-select-calendar-adults {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .obpress-calendar-allow-unavail, .obpress-footer-info-api {
@@ -67,14 +111,21 @@ input::-webkit-inner-spin-button {
     align-items: flex-end;
 }
 
+
 .obpress-calendar-allow-unavail label, .obpress-footer-info-api label, 
 .obpress-google-maps-api label , .obpress-children-allowed label{
     margin-right: 30px;
+    font-size: 14px;
+}
+
+.obpress-hotel-select span {
+    margin-right: 65px;
 }
 
 .obpress-list-grid {
     display: flex;
     flex-direction: column;
+    font-size: 14px;
 }
 
 .list-hotel-holder { 
@@ -83,10 +134,72 @@ input::-webkit-inner-spin-button {
     align-items: flex-end;    
 }
 
-.obpress-apply-holder {
-    margin-bottom: 200px;
+.obpress-select-max-rooms-holder {
+    display: flex;
+    flex-direction: column;
 }
 
-.obpress-hotel-select {
-    margin-right: 30px;
+.obpress-select-max-rooms-holder > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.obpress-apply-holder, .obpress-wrap form {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.obpress-apply {
+    background: #2271b1;
+    border-color: #2271b1;
+    color: #fff;
+    font-size: 13px;
+    line-height: 2.15384615;
+    padding: 0 10px;
+    cursor: pointer;
+    border-width: 1px;
+    border-radius: 3px;
+}
+
+.disconnect-button {
+    background: #ED4337;
+    border-color: #ED4337;
+    color: #fff;
+    font-size: 13px;
+    line-height: 2.15384615;
+    padding: 0 10px;
+    cursor: pointer;
+    border-width: 1px;
+    border-radius: 3px;
+    text-transform: capitalize;
+}
+
+.ob-plugin-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-plugin-submit {
+    background: #2271b1;
+    border-color: #2271b1;
+    color: #fff;
+    font-size: 13px;
+    line-height: 2.15384615;
+    padding: 0 10px;
+    cursor: pointer;
+    border-width: 1px;
+    border-radius: 3px;
+    margin: auto;
+}
+
+.ob-plugin-form .content-container {
+    margin-bottom: 20px;
+}
+
+.input-plugin-holder {
+    display: flex;
+    align-items: center;
+    max-width: 530px;
+    justify-content: space-between;
 }

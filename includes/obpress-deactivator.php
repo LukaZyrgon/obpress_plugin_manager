@@ -15,7 +15,7 @@ class OBPress_Deactivator {
         delete_option('allow_unavail_dates');
         delete_option('footer_api_option');
         delete_option('obpress_google_maps_api_key');
-        delete_option('children_disabled');
+        //delete_option('children_disabled');
         flush_rewrite_rules();
     }
 }

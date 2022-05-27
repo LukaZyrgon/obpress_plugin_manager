@@ -16,7 +16,7 @@ function admin_apply_changes() {
     $footerApiInfo = $_POST['footerApiInfo'];
     $googleMapsApiKey = $_POST['googleMapsApiKey'];
 
-    $childrenDisabled = $_POST['childrenDisabled'];
+    //$childrenDisabled = $_POST['childrenDisabled'];
 
     $langArray = [
         8 => "pt_BR",
@@ -41,7 +41,7 @@ function admin_apply_changes() {
     update_option('footer_api_option', $footerApiInfo);
     update_option('obpress_google_maps_api_key', $googleMapsApiKey);
 
-    update_option('children_disabled', $childrenDisabled);
+   // update_option('children_disabled', $childrenDisabled);
 
     if(!empty($changedMaxRooms)) {
         update_option('changed_max_rooms', $changedMaxRooms);

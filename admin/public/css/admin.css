@@ -111,9 +111,7 @@ input::-webkit-inner-spin-button {
     align-items: flex-end;
 }
 
-
-.obpress-calendar-allow-unavail label, .obpress-footer-info-api label, 
-.obpress-google-maps-api label , .obpress-children-allowed label{
+.obpress-calendar-allow-unavail label, .obpress-footer-info-api label, .obpress-google-maps-api span, .obpress-select-calendar-adults span, .obpress-select-currency span, .obpress-hotel-select span, .obpress-room-select span {
     margin-right: 30px;
     font-size: 14px;
 }

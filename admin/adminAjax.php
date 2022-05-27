@@ -4,7 +4,9 @@ add_action('wp_ajax_admin_apply_changes', 'admin_apply_changes');
 add_action('wp_ajax_nopriv_admin_apply_changes', 'admin_apply_changes');
 
 
+
 function admin_apply_changes() {
+
     $selectedCurrency = $_POST['selectedCurrency'];
     $selectedLang = $_POST['selectedLang'];
     $calendarAdults = $_POST['calendarAdults'];
@@ -13,6 +15,8 @@ function admin_apply_changes() {
     $allowUnavailDates = $_POST['allowUnavailDates'];
     $footerApiInfo = $_POST['footerApiInfo'];
     $googleMapsApiKey = $_POST['googleMapsApiKey'];
+
+    $childrenDisabled = $_POST['childrenDisabled'];
 
     $langArray = [
         8 => "pt_BR",
@@ -36,6 +40,8 @@ function admin_apply_changes() {
     update_option('allow_unavail_dates', $allowUnavailDates);
     update_option('footer_api_option', $footerApiInfo);
     update_option('obpress_google_maps_api_key', $googleMapsApiKey);
+
+    update_option('children_disabled', $childrenDisabled);
 
     if(!empty($changedMaxRooms)) {
         update_option('changed_max_rooms', $changedMaxRooms);
@@ -64,6 +70,7 @@ function get_hotel_max_rooms() {
         }
 
     }
+
 
     echo json_encode($roomLimits);
 

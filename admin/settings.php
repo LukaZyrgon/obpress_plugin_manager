@@ -40,7 +40,7 @@ require_once(dirname(__FILE__) . '/settingsController.php');
 
     <div class="obpress-children-allowed">
         <label for="">Disable children in occupancy</label>
-        <input type="checkbox" id="obpress-children-disabled">
+        <input type="checkbox" id="obpress-children-disabled"  <?php echo get_option('children_disabled') ? 'checked' : ''; ?> >
     </div>
     
 </div>

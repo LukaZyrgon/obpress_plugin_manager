@@ -194,6 +194,13 @@ jQuery(document).ready(function () {
 
     var changedMaxRooms = [];
 
+
+    var childrenDisabled = false;
+    
+    if(jQuery('#obpress-children-disabled').is(":checked")) {
+      childrenDisabled = true;
+    }
+
     var allowUnavailDates = false;
     if(jQuery('#obpress-calendar-allow-checkbox').is(":checked")) {
       allowUnavailDates = true;
@@ -242,6 +249,8 @@ jQuery(document).ready(function () {
     data.allowUnavailDates = allowUnavailDates;
     data.footerApiInfo = footerApiInfo;
     data.googleMapsApiKey = googleMapsApiKey;
+
+    data.childrenDisabled = childrenDisabled;
 
     data.action = action;
 

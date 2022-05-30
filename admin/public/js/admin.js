@@ -192,6 +192,8 @@ jQuery(document).ready(function () {
       .val();
     var removedHotels = [];
 
+    var removedPackages = [];
+
     var changedMaxRooms = [];
 
 
@@ -226,6 +228,21 @@ jQuery(document).ready(function () {
       }
     }
 
+
+
+
+    for (j = 0; j < jQuery(".list-packages").length; j++) {
+      if (jQuery(".list-packages").eq(j).prop("checked") == false) {
+        removedPackages.push(
+          parseInt(
+            jQuery(".list-packages").eq(j).attr("data-property-id")
+          )
+        );
+      }
+    }
+
+
+
     for (i = 0; i < jQuery(".obpress-room-option").length; i++) {
       var option = jQuery(".obpress-room-option").eq(i);
       var roomAndId = {};
@@ -245,6 +262,7 @@ jQuery(document).ready(function () {
     // data.selectedLang = selectedLang;
     data.calendarAdults = calendarAdults;
     data.removedHotels = JSON.stringify(removedHotels);
+    data.removedPackages = JSON.stringify(removedPackages);
     data.changedMaxRooms = changedMaxRooms;
     data.allowUnavailDates = allowUnavailDates;
     data.footerApiInfo = footerApiInfo;

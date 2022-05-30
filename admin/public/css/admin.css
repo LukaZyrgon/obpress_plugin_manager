@@ -126,10 +126,16 @@ input::-webkit-inner-spin-button {
     font-size: 14px;
 }
 
-.list-hotel-holder { 
+.list-hotel-holder , .list-packages { 
     margin-bottom: 10px;
     display: flex;
     align-items: flex-end;    
+}
+
+.list-hotel-label , .list-package-label {  
+    position: relative;
+    top: 1px;
+    left: 6px;
 }
 
 .obpress-select-max-rooms-holder {

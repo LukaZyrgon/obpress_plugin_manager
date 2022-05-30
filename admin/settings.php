@@ -56,6 +56,28 @@ require_once(dirname(__FILE__) . '/settingsController.php');
                 </div>
             <?php endif; ?>
 
+
+            <?php if ( $available_packages != null ) : ?>
+                <div class="obpress-select-packages" data-removed-packages="<?= get_option('removed_packages') ?>">
+                    <h3>Select which package will be visible</h3>
+                    <div class="obpress-list-grid">
+                        <?php 
+                            foreach ($available_packages->RoomStaysType->RoomStays as $package) {
+                                  ?>
+                                   <span class="list-packages">
+                                        <input type="checkbox" class="list-packages" data-property-id="<?php echo $package->RatePlans[0]->RatePlanID ?>" checked="checked" id="<?php echo $package->RatePlans[0]->RatePlanID ?>">
+                                        <label for="<?php echo $package->RatePlans[0]->RatePlanID ?>" class="list-package-label" data-property-id="<?php echo $package->RatePlans[0]->RatePlanID ?>">     
+                                            <?php echo $package->RatePlans[0]->RatePlanName;  ?>       
+                                        </label>
+                                    </span> 
+                                <?php
+                            }
+                        ?> 
+                    </div>
+                </div>
+            <?php endif; ?>
+
+
             <div class="obpress-select-max-rooms">
                 <h3>Select maximum number of rooms</h3>
                 <div class="obpress-select-max-rooms-holder">
@@ -91,6 +113,9 @@ require_once(dirname(__FILE__) . '/settingsController.php');
                     </span>        
                 </div>
             </div>
+
+
+
         </div>
         <div class="obpress-apply-holder">
             <button class="obpress-apply">Apply Changes</button>

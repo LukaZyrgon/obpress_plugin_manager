@@ -16,6 +16,8 @@ function admin_apply_changes() {
     $footerApiInfo = $_POST['footerApiInfo'];
     $googleMapsApiKey = $_POST['googleMapsApiKey'];
 
+    $removedPackages = $_POST['removedPackages'];
+
     //$childrenDisabled = $_POST['childrenDisabled'];
 
     $langArray = [
@@ -37,6 +39,7 @@ function admin_apply_changes() {
     update_option('default_language', $selectedLangLocale);
     update_option('calendar_adults', $calendarAdults);
     update_option('removed_hotels', $removedHotels);
+    update_option('removed_packages', $removedPackages);
     update_option('allow_unavail_dates', $allowUnavailDates);
     update_option('footer_api_option', $footerApiInfo);
     update_option('obpress_google_maps_api_key', $googleMapsApiKey);

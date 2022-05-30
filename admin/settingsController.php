@@ -13,3 +13,12 @@ foreach($hotelFolders as $hotelFolder) {
     }
 }
 
+$currency = "1";
+
+$language = "1";
+
+$mobile = "false";
+
+$available_packages = BeApi::ApiCache('available_packages_'.$chain.'_'.$currency.'_'.$language.'_'.$mobile, BeApi::$cache_time['available_packages'], function() use ($chain, $currency, $language, $mobile){
+            return BeApi::getClientAvailablePackages($chain, $currency, $language, null, $mobile);
+        });

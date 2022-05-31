@@ -64,7 +64,7 @@ require_once(dirname(__FILE__) . '/settingsController.php');
                         <?php 
                             foreach ($available_packages->RoomStaysType->RoomStays as $package) {
                                   ?>
-                                   <span class="list-packages">
+                                   <span class="list-packages-span">
                                         <input type="checkbox" class="list-packages" data-property-id="<?php echo $package->RatePlans[0]->RatePlanID ?>" checked="checked" id="<?php echo $package->RatePlans[0]->RatePlanID ?>">
                                         <label for="<?php echo $package->RatePlans[0]->RatePlanID ?>" class="list-package-label" data-property-id="<?php echo $package->RatePlans[0]->RatePlanID ?>">     
                                             <?php echo $package->RatePlans[0]->RatePlanName;  ?>       

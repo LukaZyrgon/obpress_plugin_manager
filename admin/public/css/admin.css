@@ -126,7 +126,7 @@ input::-webkit-inner-spin-button {
     font-size: 14px;
 }
 
-.list-hotel-holder , .list-packages { 
+.list-hotel-holder , .list-packages-span { 
     margin-bottom: 10px;
     display: flex;
     align-items: flex-end;    

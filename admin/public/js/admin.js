@@ -51,9 +51,13 @@ jQuery(document).ready(function () {
     }
   });
 
+
+  // uncheck removed hotels
   var removedHotels = jQuery(".obpress-select-list-hotel").attr(
     "data-removed-hotels"
   );
+
+  //console.log(removedHotels, removedHotels.length );
 
   if (removedHotels != null && removedHotels != "") {
     removedHotels = JSON.parse(removedHotels);
@@ -69,6 +73,31 @@ jQuery(document).ready(function () {
       }
     }
   }
+
+
+
+
+  //uncheck removed packages
+  var removedPackages = jQuery(".obpress-select-packages").attr(
+    "data-removed-packages"
+  ).slice(0, -1).slice(1);
+
+  removedPackages = removedPackages.split(",");
+
+  for (i = 0; i < jQuery(".list-packages").length; i++) {
+    for (j = 0; j < removedPackages.length; j++) {
+      if (
+        jQuery(".list-packages").eq(i).attr("data-property-id") ==
+        removedPackages[j]
+      ) {
+        jQuery(".list-packages").eq(i).prop("checked", false);
+      }
+    }
+  }
+
+
+
+
 
   var calendarAdultsSelected = jQuery(".calendar-adults-select").attr(
     "data-adults-selected"

@@ -300,7 +300,8 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
         }
 
         public static function ChainOrHotel() {
-            if(get_option('chain_id') != null) {
+            if(get_option('chain_id') != null && empty(get_option('hotel_id'))) {
+                // var_dump('asd');
                 $chain = get_option('chain_id');
                 $property = false;
                 $loadLanguages = self::getLanguagesForChain($chain);
@@ -308,6 +309,7 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
                 self::getCurrenciesForChain($chain);
             }
             elseif(get_option('hotel_id')) {
+                // var_dump('dsa');
                 $chain = get_option('chain_id');
                 $property = get_option('hotel_id');
     
@@ -389,21 +391,7 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
                     $language_object = clone $languages[0];
                 }
             }
-            // elseif(!empty(get_option('default_language_id')) && get_option('default_language_id') != null){
-            //     $language = (int)get_option('default_language_id');
-            //     foreach ($languages as $lang) {
-            //         if($lang->UID == $language) {
-            //             $language_object = clone $lang;
-            //             $comparing = true;
-            //             $langPrefix = $lang->Path;
-            //             break;                        
-            //         }
-            //     }
-            //     if($comparing == false) {
-            //         $language = $languages[0]->UID;
-            //         $language_object = clone $languages[0];
-            //     }                
-            // }
+
             elseif(isset($languageFromBrowser)) {
                 foreach (self::$browserLanguagesList as $key => $browserLanguage) {
                     if($key == $languageFromBrowser) {
@@ -517,12 +505,16 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
                 }
             }
             else {
+                $wpmlDefaultLang = apply_filters('wpml_default_language', NULL );
+                
                 foreach ($hotel_languages as $lang) {
-                    if ($lang->UID == $default_curr_lang[$property]->BaseLanguageUID) {
-    
+                    if ($lang->Wpml == $wpmlDefaultLang) {
+                        // var_dump($lang);
+                        // die();
                         $language = $lang->UID;
                         $language_object = clone $lang;
                         $defaultLangPrefix = $lang->Path;
+                        $wpmlDefaultLangId = $lang->UID;
                         break;
                     }
                 }
@@ -539,7 +531,7 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
             $_GET["lang"] = $language_object->Wpml;
     
             if ($comparing == false) {
-                $language = $default_curr_lang[$property]->BaseLanguageUID;                
+                $language = $wpmlDefaultLangId;                
                 self::$language_path = $defaultLangPrefix;
             }
     

@@ -79,11 +79,13 @@ input::-webkit-inner-spin-button {
     margin-top: 0px;
 }
 
-.obpress-select-currency, .obpress-select-language, .obpress-calendar-options, .obpress-select-list-hotel, .obpress-select-max-rooms, .obpress-footer-info, .obpress-room-select {
+.obpress-select-currency, .obpress-select-language, .obpress-calendar-options, .obpress-select-list-hotel, 
+.obpress-select-max-rooms, .obpress-footer-info, .obpress-room-select , .obpress-select-packages , .obpress-order-packages {
     margin-bottom: 20px;
 }
 
-.obpress-select-currency, .obpress-select-language, .obpress-calendar-options, .obpress-select-list-hotel, .obpress-footer-info, .obpress-google-maps, .obpress-room-select {
+.obpress-select-currency, .obpress-select-language, .obpress-calendar-options, .obpress-select-list-hotel, 
+.obpress-footer-info, .obpress-google-maps, .obpress-room-select , .obpress-select-packages{
     width: fit-content;
 }
 
@@ -99,6 +101,12 @@ input::-webkit-inner-spin-button {
 .obpress-select-calendar-adults, .obpress-hotel-select {
     margin-bottom: 10px;
 }
+
+.package-order {
+    display: block;
+    margin-bottom: 10px;
+}
+
 
 .obpress-select-calendar-adults {
     display: flex;

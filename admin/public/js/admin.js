@@ -57,7 +57,6 @@ jQuery(document).ready(function () {
     "data-removed-hotels"
   );
 
-  //console.log(removedHotels, removedHotels.length );
 
   if (removedHotels != null && removedHotels != "") {
     removedHotels = JSON.parse(removedHotels);
@@ -287,6 +286,11 @@ jQuery(document).ready(function () {
       }
     }
 
+
+    var package_order = jQuery("#package-order").val();
+
+
+
     data.selectedCurrency = selectedCurrency;
     // data.selectedLang = selectedLang;
     data.calendarAdults = calendarAdults;
@@ -296,6 +300,7 @@ jQuery(document).ready(function () {
     data.allowUnavailDates = allowUnavailDates;
     data.footerApiInfo = footerApiInfo;
     data.googleMapsApiKey = googleMapsApiKey;
+    data.packageOrder = package_order;
 
     //data.childrenDisabled = childrenDisabled;
 

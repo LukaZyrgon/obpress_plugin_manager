@@ -67,7 +67,7 @@ require_once(dirname(__FILE__) . '/settingsController.php');
                                    <span class="list-packages-span">
                                         <input type="checkbox" class="list-packages" data-property-id="<?php echo $package->RatePlans[0]->RatePlanID ?>" checked="checked" id="<?php echo $package->RatePlans[0]->RatePlanID ?>">
                                         <label for="<?php echo $package->RatePlans[0]->RatePlanID ?>" class="list-package-label" data-property-id="<?php echo $package->RatePlans[0]->RatePlanID ?>">     
-                                            <?php echo $package->RatePlans[0]->RatePlanName;  ?>       
+                                            <?php echo $package->RatePlans[0]->RatePlanName;  ?> ( ID: <?php echo $package->RatePlans[0]->RatePlanID ?>)     
                                         </label>
                                     </span> 
                                 <?php
@@ -75,6 +75,30 @@ require_once(dirname(__FILE__) . '/settingsController.php');
                         ?> 
                     </div>
                 </div>
+
+
+                <div class="obpress-order-packages"> 
+
+                    <h3>Select how packages will be ordered</h3>
+
+                    <span class="obpress-order-packages-span">
+
+                        <label for="package-order" class="package-order" >     
+                            Select how packages will be ordered   
+                        </label>
+
+                        <select id="package-order" date-method="<?= get_option('package_order') ?>">
+                            <option value="folder">By folder (default)</option>
+                            <option value="date">By date</option>
+                            <option value="price">By price</option>
+                        </select>
+
+                    
+                    </span> 
+
+                </div>
+
+
             <?php endif; ?>
 
 

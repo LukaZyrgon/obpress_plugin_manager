@@ -18,6 +18,8 @@ function admin_apply_changes() {
 
     $removedPackages = $_POST['removedPackages'];
 
+    $packageOrder = $_POST['packageOrder'];
+
     //$childrenDisabled = $_POST['childrenDisabled'];
 
     $langArray = [
@@ -43,6 +45,7 @@ function admin_apply_changes() {
     update_option('allow_unavail_dates', $allowUnavailDates);
     update_option('footer_api_option', $footerApiInfo);
     update_option('obpress_google_maps_api_key', $googleMapsApiKey);
+    update_option('package_order', $packageOrder);
 
    // update_option('children_disabled', $childrenDisabled);
 

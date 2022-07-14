@@ -16,6 +16,7 @@ class OBPress_Deactivator {
         delete_option('footer_api_option');
         delete_option('obpress_google_maps_api_key');
         delete_option('removed_packages');
+        delete_option('package_order');
         //delete_option('children_disabled');
         flush_rewrite_rules();
     }

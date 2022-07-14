@@ -473,7 +473,13 @@ class AnalyzeDescriptiveInfosRes {
         //going through each hotel
         foreach(self::$data->HotelDescriptiveContentsType->HotelDescriptiveContents as $hotel){
             foreach ($hotel->FacilityInfo->GuestRoomsType->GuestRooms as $room) {
-                $types = $room->AmenitiesType->RoomAmenities;
+
+                // if amenities are set, put them in  $types, else put empty array
+                if (isset($room->AmenitiesType->RoomAmenities) ) {
+                    $types = $room->AmenitiesType->RoomAmenities;
+                } else {
+                    $types = [];
+                }
 
                 if(!isset($amenityTypes[$hotel->HotelRef->HotelCode])){
                     $amenityTypes[$hotel->HotelRef->HotelCode] = [];

@@ -16,6 +16,7 @@ class OBPress_Activator {
         add_option('footer_api_option', true);
         add_option('obpress_google_maps_api_key', null);
         add_option('removed_packages', null);
+        add_option('package_order', null);
         //add_option('children_disabled', false);
         flush_rewrite_rules();
     }

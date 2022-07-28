@@ -392,7 +392,11 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
                 }
             }
 
+        
             elseif(isset($languageFromBrowser)) {
+
+                $wpmlDefaultLang = apply_filters('wpml_default_language', NULL );
+
                 foreach (self::$browserLanguagesList as $key => $browserLanguage) {
                     if($key == $languageFromBrowser) {
                         $language = $browserLanguage["code"];
@@ -405,7 +409,7 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
                 }
     
                 foreach ($languages as $lang) {
-                    if($lang->UID == $language) {
+                    if($lang->Wpml == $wpmlDefaultLang) {
                         $language_object = clone $lang;
                         $comparing = true;
                         $langPrefix = $lang->Path;

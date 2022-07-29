@@ -410,6 +410,7 @@ if ( ! class_exists( 'Lang_Curr_Functions' )) {
     
                 foreach ($languages as $lang) {
                     if($lang->Wpml == $wpmlDefaultLang) {
+                        $language = $lang->UID;
                         $language_object = clone $lang;
                         $comparing = true;
                         $langPrefix = $lang->Path;

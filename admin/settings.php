@@ -57,7 +57,7 @@ require_once(dirname(__FILE__) . '/settingsController.php');
             <?php endif; ?>
 
 
-            <?php if ( $available_packages != null ) : ?>
+            <?php if ( $available_packages->RoomStaysType != null ) : ?>
                 <div class="obpress-select-packages" data-removed-packages="<?= get_option('removed_packages') ?>">
                     <h3>Select which package will be visible</h3>
                     <div class="obpress-list-grid">
